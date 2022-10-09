@@ -4,19 +4,26 @@
 # Все конфеты оппонента достаются сделавшему последний ход. Сколько конфет нужно
 # взять первому игроку, чтобы забрать все конфеты у своего конкурента?
 
-# чтобы выиграть первый игрок должен взять 20 конфет, а последующие ходы сравнивать до 29 (ход соперника и свой)
+# a) Добавьте игру против бота
 
 import random
 
 
 # ввод числа от пользователя
-def user_input_number():
+def quest_input():
     num_candy = int(
         input(f'Игрок {current_player}, введите число конфет от 1 до 28: '))
     print(f'Игрок {current_player} ввел {num_candy}')
     if num_candy > 28 or num_candy <= 0:
         print(f'Введено неверное число, повторите ввод.')
-        return user_input_number()
+        return quest_input()
+    return num_candy
+
+
+# ход бота
+def bot_random_number():
+    num_candy = random.randint(1, 28)
+    print(f'Игрок {current_player} ввел {num_candy}')
     return num_candy
 
 
@@ -49,7 +56,10 @@ print(f'Ход {current_player} игрока')
 game_runned = True  # флаг игры
 
 while (game_runned):  # пока Правда игра продолжается
-    number_entry = user_input_number()  # ввод числа user
+    if current_player == 1:
+        number_entry = quest_input()  # ввод числа user
+    if current_player == 2:
+        number_entry = bot_random_number()  # ход бота рандомно
     number_candies = game_candy(number_candies, number_entry)  # ход игры
     is_win = win_check(number_candies)
     if is_win == True:
