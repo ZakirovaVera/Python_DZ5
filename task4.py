@@ -25,4 +25,7 @@ with open('text_1.txt', 'r') as file:
     file_data_list1 = file.read()
     print(f'Данные с файла {file_data_list1}')
 file.close()
-print(coding_text(file_data_list1))
+text_encode = coding_text(file_data_list1)
+print(text_encode)
+with open('text_2.txt', 'w') as data:
+        data.write(text_encode)
